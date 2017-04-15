@@ -1,0 +1,31 @@
+
+body {
+	background-color: black;
+	color: white;
+}
+
+thead>tr
+{
+	background-color: #337ab7;
+}
+
+.ng-invalid-pattern
+{
+	border-color: red;
+}
+
+.ng-invalid-required
+{
+	border-color: red;
+}
+.input-group-addon
+{
+	background-color: transparent;
+	border: 0px;
+}
+
+.form-control
+{
+	background-color: transparent;
+	color: white;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Boot auth logins</title>
+	<!-- build:css css/app.min.css -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/master.css" rel="stylesheet">
+	<!-- /build -->
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6">
+				<form action="/login" method="POST" class="form" style="padding-top: 30px; padding-bottom: 30px; border: thin solid gray; border-radius: 4px;" id="frmLogin">
+					<div class="form-group">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon" style="background-color: #009DEF;">User
+								Name:
+							</span> 
+							<input id="username" name="j_username" type="text" class="form-control" style="color: white;" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon" style="background-color: #009DEF;">Password:</span>
+							<input id="password" name="j_password" type="password" class="form-control" style="color: white;" />
+						</div>
+					</div>
+					<input type="submit" value="Log In" class="btn btn-primary" />
+				</form>
+			</div>
+		</div>
+		<div class="row" ng-app="bootLogin">
+			<div class="col-md-4" ng-controller="loginCtrl">
+				<form class="form">
+					<div class="form-group">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon" style="background-color: #009DEF;">User
+								Name:
+							</span> 
+							<input id="usr" name="usr" type="text" class="form-control" style="color: white;" ng-model="user.name" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon" style="background-color: #009DEF;">User
+								Name:
+							</span> 
+							<input id="pwd" name="pwd" type="password" class="form-control" style="color: white;" ng-model="user.pwd" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group input-group-sm">
+							<span class="input-group-addon" style="background-color: #009DEF;">User
+								Name:
+							</span> 
+							<input id="repeatPwd" name="repeatPwd" type="password" class="form-control" style="color: white;" ng-model="repeatPwd" />
+						</div>
+					</div>
+					<button ng-click="signIn()" class="btn btn-primary" ng-disabled="(user.pwd!==repeatPwd)||(user.pwd==='')">SignIn</button>
+				</form>
+			</div>
+		</div>
+		
+		
+		
+	</div>
+	<script type="text/javascript" src="jsLib/jquery.min.js"></script>
+	<script type="text/javascript" src="jsLib/angular.min.js"></script>
+	<script type="text/javascript" src="jsLib/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" src="appz/app.js"></script>
+	<script type="text/javascript" src="appz/login.js"></script>
+</body>
+</html>
