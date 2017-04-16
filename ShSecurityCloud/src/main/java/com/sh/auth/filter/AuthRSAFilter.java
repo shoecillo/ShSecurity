@@ -52,8 +52,11 @@ public class AuthRSAFilter extends GenericFilterBean {
 		HttpServletRequest req =(HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		
+		RequestWrapper reqHeader = new RequestWrapper(req);
+		
 		Pattern pat = Pattern.compile(regEx);
 		Matcher match = pat.matcher(req.getRequestURI());
+		
 		
 		if(!match.matches())
 		{
@@ -69,6 +72,7 @@ public class AuthRSAFilter extends GenericFilterBean {
 						resp.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
 						resp.setHeader("Location", redirectPath);
 					}
+					reqHeader.addHeader("SH-AUTH-REQUEST", "true");
 				}
 				else
 				{
@@ -83,7 +87,7 @@ public class AuthRSAFilter extends GenericFilterBean {
 			}
 		}
 
-		chain.doFilter(req, resp);
+		chain.doFilter(reqHeader, resp);
 		
 	}
 	
