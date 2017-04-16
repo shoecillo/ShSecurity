@@ -106,6 +106,8 @@ public class CustomSecProvider implements AuthenticationProvider  {
 			return null;
 	}
 	
+	
+	
 	/**
 	 * Method for restrict authentication class to UsernamePasswordAuthenticationToken 
 	 */

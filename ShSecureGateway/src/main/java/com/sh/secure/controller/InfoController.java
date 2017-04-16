@@ -23,7 +23,7 @@ public class InfoController {
 	private CookieService cookieServ;
 	
 	
-	@RequestMapping("/exam")
+	@RequestMapping("/getSSOnfo")
 	public String example(HttpServletRequest req,HttpServletResponse resp)
 	{
 		try {

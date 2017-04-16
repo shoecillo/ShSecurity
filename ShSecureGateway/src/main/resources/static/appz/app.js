@@ -17,16 +17,18 @@ authPortal.controller('authCtrl',['$http','$scope','$interval',function($http,$s
 	
 	self.isExpired = false;
 	
+	self.routes = [];
+	
 	self.getExpiration = function()
 	{
-		$http.get("/exam").then(function(resp) {
+		$http.get("/getSSOnfo").then(function(resp) {
 			
 			var expire = resp.data;
 			
 			var current = new Date();
 			var currTime = current.getTime();
 			
-			self.expireDate = new Date(expire);
+			self.expireDate = moment(expire).format("YYYY-MM-DD HH:mm:ss");
 			
 			self.expiration = resp.data;
 		}, function(error) {
@@ -34,7 +36,32 @@ authPortal.controller('authCtrl',['$http','$scope','$interval',function($http,$s
 		});
 	};
 	
+	self.getRoutes = function()
+	{
+		$http.get("/routes").then(function(resp) 
+		{
+			var routes = resp.data;
+			
+			for(var key in routes)
+			{
+				if(routes.hasOwnProperty(key))
+				{
+					self.routes.push( {id : routes[key], path :"/"+routes[key]+"/"});
+				}
+			}
+			
+		}, function(error) {
+			
+		});
+	};
+	
+	
+	
 	self.getExpiration();
+	
+	self.getRoutes();
+	
+	
 	var timer = $interval(function()
 	{
 		var current = new Date();

@@ -96,7 +96,7 @@ public class SecureGateway {
 	@Bean
 	public RSAKeysUtil configKey()
 	{
-		return new RSAKeysUtil(ksPath, pwd, alias,configRepoJson());
+		return new RSAKeysUtil(ksPath, pwd, alias,configRepoMongo());
 	}
 	
 	/**
@@ -107,7 +107,7 @@ public class SecureGateway {
 	@Bean
 	public SignInService signInServ()
 	{
-		return new SignInServiceImpl(configRepoJson());
+		return new SignInServiceImpl(configRepoMongo());
 	}
 	/**
 	 * Custom AuthenticationProvider implementation for Spring security.<BR>
@@ -117,7 +117,7 @@ public class SecureGateway {
 	@Bean
 	public CustomSecProvider getSecurityProvider()
 	{
-		return new CustomSecProvider(configRepoJson());
+		return new CustomSecProvider(configRepoMongo());
 	}
 	
 }

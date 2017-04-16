@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	                .permitAll()
 	                .and()
 	            .authorizeRequests()
-	            	.antMatchers("/signIn","/css/**","/jsLib/**","/fonts/**","/appz/**").permitAll()
+	            	.antMatchers("/signIn","/css/**","/jsLib/**","/fonts/**","/appz/**","/img/**").permitAll()
 	            	.anyRequest().authenticated();
 	            	
 	                

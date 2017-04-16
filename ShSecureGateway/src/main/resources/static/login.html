@@ -10,61 +10,59 @@
 	<link href="css/master.css" rel="stylesheet">
 	<!-- /build -->
 </head>
-<body>
-	<div class="container-fluid">
+<body style="background-image: url('img/bg-login.png');background-size: 100% auto" ng-app="bootLogin">
+	<div class="container-fluid" ng-controller="loginCtrl">
 		<div class="row">
-			<div class="col-md-6">
-				<form action="/login" method="POST" class="form" style="padding-top: 30px; padding-bottom: 30px; border: thin solid gray; border-radius: 4px;" id="frmLogin">
+			<div class="col-md-12">
+				<img class="img-responsive center-block" src="img/banner.png">
+			</div>
+		</div>
+		<div class="row" ng-show="createUser===false && isCreated===false">
+			<div class="col-md-4 col-lg-2 col-md-offset-3 col-lg-offset-4">
+				<form action="/login" method="POST" class="form" style="padding-top: 30px; padding-bottom: 30px;" id="frmLogin">
 					<div class="form-group">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon" style="background-color: #009DEF;">User
-								Name:
-							</span> 
-							<input id="username" name="j_username" type="text" class="form-control" style="color: white;" />
-						</div>
-					</div>
+						<input id="username" name="j_username" type="text" class="form-control" style="color: white;" placeholder="Username"/>
+					</div> 
 					<div class="form-group">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon" style="background-color: #009DEF;">Password:</span>
-							<input id="password" name="j_password" type="password" class="form-control" style="color: white;" />
-						</div>
+						<input id="password" name="j_password" type="password" class="form-control" style="color: white;" placeholder="Password" />
 					</div>
-					<input type="submit" value="Log In" class="btn btn-primary" />
+					<input style="width:100%;" type="submit" value="Log In" class="btn btn-primary" />
 				</form>
 			</div>
 		</div>
-		<div class="row" ng-app="bootLogin">
-			<div class="col-md-4" ng-controller="loginCtrl">
-				<form class="form">
-					<div class="form-group">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon" style="background-color: #009DEF;">User
-								Name:
-							</span> 
-							<input id="usr" name="usr" type="text" class="form-control" style="color: white;" ng-model="user.name" />
-						</div>
+		<div>
+			<div>
+				<div class="row" ng-show="createUser===false && isCreated===false">
+					<div class="col-md-4 col-lg-2 col-md-offset-3 col-lg-offset-4">
+						<button ng-click="createUser=true;isCreated=false;" style="width:100%;" class="btn btn-primary">Create User</button>
 					</div>
-					<div class="form-group">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon" style="background-color: #009DEF;">User
-								Name:
-							</span> 
-							<input id="pwd" name="pwd" type="password" class="form-control" style="color: white;" ng-model="user.pwd" />
-						</div>
+				</div>
+				<div class="row" ng-show="isCreated===true">
+					<div class="col-md-4 col-lg-2 col-md-offset-3 col-lg-offset-4">
+						<h4>User {{user.name}} created correctly</h4>
+						<button style="width:100%;" ng-click="createUser=false;isCreated=false;" class="btn btn-primary">Back to login</button>
 					</div>
-					<div class="form-group">
-						<div class="input-group input-group-sm">
-							<span class="input-group-addon" style="background-color: #009DEF;">User
-								Name:
-							</span> 
-							<input id="repeatPwd" name="repeatPwd" type="password" class="form-control" style="color: white;" ng-model="repeatPwd" />
-						</div>
+				</div>
+				
+				<div class="row" ng-hide="createUser===false">
+					<div class="col-md-4 col-lg-2 col-md-offset-3 col-lg-offset-4">
+						<form class="form"  style="padding-top: 30px; padding-bottom: 30px;">
+							<div class="form-group">
+								<input id="usr" name="usr" type="text" class="form-control" style="color: white;" ng-model="user.name" placeholder="Username"/>
+							</div>
+							<div class="form-group">
+								<input id="pwd" name="pwd" type="password" class="form-control" style="color: white;" ng-model="user.pwd" placeholder="Password"/>
+							</div>
+							<div class="form-group">
+								<input id="repeatPwd" name="repeatPwd" type="password" class="form-control" style="color: white;" ng-model="repeatPwd" placeholder="Repeat password"/>
+							</div>
+							<button style="width:100%;" ng-click="signIn()" class="btn btn-primary" ng-disabled="(user.pwd!==repeatPwd)||(user.pwd==='')">SignIn</button>
+							<button style="width:100%;" ng-click="createUser=false;isCreated=false;" class="btn btn-primary">Back to login</button>
+						</form>
 					</div>
-					<button ng-click="signIn()" class="btn btn-primary" ng-disabled="(user.pwd!==repeatPwd)||(user.pwd==='')">SignIn</button>
-				</form>
+				</div>
 			</div>
-		</div>
-		
+		</div>		
 		
 		
 	</div>
