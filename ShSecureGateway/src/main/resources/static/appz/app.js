@@ -46,7 +46,8 @@ authPortal.controller('authCtrl',['$http','$scope','$interval',function($http,$s
 			{
 				if(routes.hasOwnProperty(key))
 				{
-					self.routes.push( {id : routes[key], path :"/"+routes[key]+"/"});
+					var s = key.substring(0, key.lastIndexOf("/"));
+					self.routes.push( {id : routes[key], path :s+"/"});
 				}
 			}
 			
