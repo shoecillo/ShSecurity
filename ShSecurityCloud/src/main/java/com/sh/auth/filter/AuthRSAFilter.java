@@ -72,7 +72,10 @@ public class AuthRSAFilter extends GenericFilterBean {
 						resp.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
 						resp.setHeader("Location", redirectPath);
 					}
-					reqHeader.addHeader("SH-AUTH-REQUEST", "true");
+					else
+					{
+						reqHeader.addHeader("SH-AUTH-REQUEST", "true");
+					}
 				}
 				else
 				{

@@ -89,7 +89,7 @@ public class CustomSecProvider implements AuthenticationProvider  {
 							{
 								resp.addCookie(keys.createCookie(k));
 								LOGGER.debug("[SH-SEC]-LOGIN CREDENTIALS ACCEPTED, CREATE COOKIE");
-								return new UsernamePasswordAuthenticationToken(user, pwd, authorities);
+								return new UsernamePasswordAuthenticationToken(user, k.getChipher(), authorities);
 							}
 							else
 							{
