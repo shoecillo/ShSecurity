@@ -75,7 +75,7 @@ public class RSARepositoryJson implements RSARepository {
 	public  KeyInfo readKeys(String user) throws JsonParseException, JsonMappingException, IOException
 	{
 		File json = new File(REP_PATH);
-		List<KeyInfo> lsKeys = null;
+		List<KeyInfo> lsKeys;
 		ObjectMapper mapper = new ObjectMapper();
 		KeyInfo res = null;
 		if(json.exists())

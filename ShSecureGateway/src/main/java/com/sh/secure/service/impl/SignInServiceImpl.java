@@ -1,5 +1,7 @@
 package com.sh.secure.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sh.auth.crypto.RSAKeysUtil;
@@ -20,7 +22,7 @@ public class SignInServiceImpl implements SignInService {
 	
 	private RSARepository repo;
 	
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RSAKeysUtil.class);
 	
 	/**
 	 * Constructor that need a implementation of RSARepository
@@ -48,6 +50,7 @@ public class SignInServiceImpl implements SignInService {
 		}
 		catch(Exception e)
 		{
+			LOGGER.error("Error: ",e);
 			return false;
 		}
 	}

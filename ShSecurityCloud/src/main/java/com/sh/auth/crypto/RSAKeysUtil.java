@@ -119,18 +119,18 @@ public class RSAKeysUtil
 			getKS();
 		}
 		catch (FileNotFoundException e) {	
-			e.printStackTrace();
+			LOGGER.error("Error: ",e);
 		} catch (NoSuchAlgorithmException e) {
 			
-			e.printStackTrace();
+			LOGGER.error("Error: ",e);
 		} catch (CertificateException e) {
 			
-			e.printStackTrace();
+			LOGGER.error("Error: ",e);
 		} catch (IOException e) {
 			
-			e.printStackTrace();
+			LOGGER.error("Error: ",e);
 		} catch (GeneralSecurityException e) {
-			e.printStackTrace();
+			LOGGER.error("Error: ",e);
 		}
 		
 	}
@@ -251,7 +251,7 @@ public class RSAKeysUtil
 		KeyInfo k = repo.readKeys(mapa.getUser());
 		final String chiph = dechipher(k.getChipher());
 		
-		long mills = (Integer.parseInt(expire))*1000;
+		long mills = (Integer.parseInt(expire))*1000L;
 		long crea = Long.parseLong(mapa.getCreation());
 		
 		long res = crea + mills;
