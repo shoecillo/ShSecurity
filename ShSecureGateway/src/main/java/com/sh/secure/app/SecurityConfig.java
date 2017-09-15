@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	                .and()
 	            .authorizeRequests()
 	            	
-	            	.antMatchers("stardew-calc/**","/signIn","/css/**","/jsLib/**","/fonts/**","/appz/**","/img/**").permitAll()
+	            	.antMatchers("/stardew-calc/**","/signIn","/css/**","/jsLib/**","/fonts/**","/appz/**","/img/**").permitAll()
 	            	.anyRequest().authenticated();
 	            	
 	                
