@@ -27,7 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	@Autowired
 	private AuthRSAFilter filter;
 	
-	
 	 @Override
 	 protected void configure(HttpSecurity http) throws Exception {
 	        http
@@ -49,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	                .permitAll()
 	                .and()
 	            .authorizeRequests()
-	            	.antMatchers("/signIn","/css/**","/jsLib/**","/fonts/**","/appz/**","/img/**").permitAll()
+	            	
+	            	.antMatchers("stardew-calc/**","/signIn","/css/**","/jsLib/**","/fonts/**","/appz/**","/img/**").permitAll()
 	            	.anyRequest().authenticated();
 	            	
 	                
