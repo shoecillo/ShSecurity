@@ -1,5 +1,8 @@
 package com.sh.secure.app;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +13,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.sh.auth.filter.AuthRSAFilter;
 import com.sh.auth.provider.CustomSecProvider;
+import com.sh.auth.repository.UsersRepository;
+import com.sh.auth.service.AttempsService;
 
 /**
  * Spring security configuration
@@ -26,6 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	
 	@Autowired
 	private AuthRSAFilter filter;
+	
+	@Autowired
+	private UsersRepository dao;
+	
+	@Autowired
+	private AttempsService att;
 	
 	 @Override
 	 protected void configure(HttpSecurity http) throws Exception {
@@ -58,7 +69,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	    @Autowired
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	        
-	    	
+	    	List<String> lsUsu = new ArrayList<>();
+	    	dao.findAll().stream().forEach(e -> 
+	    	{
+	    		lsUsu.add(e.user);
+	    	});
+	        att.createBlacklist(lsUsu); 
 	            
 	    }
 }
