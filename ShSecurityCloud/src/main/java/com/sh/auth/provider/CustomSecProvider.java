@@ -22,6 +22,8 @@ import com.sh.auth.crypto.RSAKeysUtil;
 import com.sh.auth.crypto.RSARepository;
 import com.sh.auth.dto.KeyInfo;
 import com.sh.auth.dto.Role;
+import com.sh.auth.events.Blacklist;
+import com.sh.auth.service.AttempsService;
 
 /**
  * Spring security custom provider for authenticate the user
@@ -40,6 +42,9 @@ public class CustomSecProvider implements AuthenticationProvider  {
 	private HttpServletResponse resp;
 	
 	private RSARepository repo;
+	
+	@Autowired
+	private AttempsService att;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomSecProvider.class);
 	
@@ -62,6 +67,17 @@ public class CustomSecProvider implements AuthenticationProvider  {
 		
 		LOGGER.debug("[SH-SEC]-Authentication URL: "+req.getRequestURI());
 		
+		Blacklist blkUser = att.getUserStatus(user);
+		if(blkUser.getTimestamp() != null)
+			blkUser = att.periodCheckLock(blkUser);
+		
+		if(blkUser.isLocked())
+		{
+			LOGGER.debug("[SH-SEC]-LOGIN CREDENTIALS LOCKED");
+			throw new BadCredentialsException("Locked Account");
+		}
+		
+		
 		Collection<? extends GrantedAuthority> authorities = buildAuthorities();
 		
 			
@@ -75,6 +91,10 @@ public class CustomSecProvider implements AuthenticationProvider  {
 					if(keys.validateCookie(coo))
 					{
 						LOGGER.debug("[SH-SEC]-COOKIE CREDENTIALS ACCEPTED");
+						blkUser.setLocked(false);
+						blkUser.setAtt(0);
+						blkUser.setTimestamp(null);
+						att.updateUserSuccess(blkUser);
 						KeyInfo inf = repo.readKeys(keys.decodeCookie(coo).getUser());
 						return new UsernamePasswordAuthenticationToken(inf.getUser(), inf.getChipher(), authorities);
 					}
@@ -89,6 +109,10 @@ public class CustomSecProvider implements AuthenticationProvider  {
 							{
 								resp.addCookie(keys.createCookie(k));
 								LOGGER.debug("[SH-SEC]-LOGIN CREDENTIALS ACCEPTED, CREATE COOKIE");
+								blkUser.setLocked(false);
+								blkUser.setAtt(0);
+								blkUser.setTimestamp(null);
+								att.updateUserSuccess(blkUser);
 								return new UsernamePasswordAuthenticationToken(user, k.getChipher(), authorities);
 							}
 							else
